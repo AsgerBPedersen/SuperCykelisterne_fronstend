@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import User from './User';
 
 class Header extends Component {
     render() {
@@ -23,7 +24,15 @@ class Header extends Component {
                         </li>
                     </ul>
                 </nav>
-                <div></div>
+                <div>
+                    <User>
+                        {({data}) => {
+                     
+                        return <p>asd</p>
+                        }
+                        }
+                    </User>
+                </div>
                 <style jsx>{`
           .nav-link:hover {
             text-decoration: underline;
