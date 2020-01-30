@@ -18,3 +18,4 @@ const User = props => (
 );
 
 export default User;
+export { CURRENT_USER };
