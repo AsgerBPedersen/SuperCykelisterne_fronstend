@@ -9,7 +9,7 @@ class Welcome extends Component {
             <div>
         <h2>Velkommen til vores hjemmeside!</h2>
         <Carousel/>
-        <div className="d-flex justify-content-sm-around p-5">
+        <div className="d-flex justify-content-around container p-5">
             <Login/>
             <Signup/>
         </div>
