@@ -10,7 +10,7 @@ class AddPhoto extends Component {
                 <div className="form-group row">
                     <div className="d-flex">
 
-                <label class="btn btn-outline-secondary text-nowrap m-0">
+                <label className="btn btn-outline-secondary text-nowrap m-0">
                     VÆLG FIL PÅ DIN COMPUTER
                     <input
                       className="form-control"

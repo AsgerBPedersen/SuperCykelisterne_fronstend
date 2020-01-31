@@ -6,7 +6,7 @@ class Account extends Component {
     render() {
         return (
             <div className="d-flex justify-content-around container">
-                <EditInfo></EditInfo>
+                <EditInfo user={this.props.user}></EditInfo>
             </div>
         );
     }

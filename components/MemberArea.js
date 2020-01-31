@@ -16,7 +16,7 @@ class MemberArea extends Component {
               <>
                 <h2 className="text-center m-5">Velkommen {user.name}!</h2>
                 <div className="d-flex justify-content-around container">
-                <Account></Account>
+                <Account user={user}></Account>
                 <AddPhoto></AddPhoto>
               </div>
               </>

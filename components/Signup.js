@@ -16,6 +16,7 @@ class Signup extends Component {
   state = {
     name: "",
     password: "",
+    confirm: "",
     email: ""
   };
 
@@ -33,13 +34,22 @@ class Signup extends Component {
                 method="post"
                 onSubmit={async e => {
                   e.preventDefault();
-                  const user = await signup();
-                  console.log(user);
-                  this.setState({name:'', email: '', password:''})
+                  if (this.state.password != this.state.confirm) {
+                    alert("kodeordne er ikke ens.");
+                    this.setState({ password: "", confirm: "" });
+                  } else {
+                    const user = await signup();
+                    console.log(user);
+                    this.setState({
+                      name: "",
+                      email: "",
+                      password: "",
+                      confirm: ""
+                    });
+                  }
                 }}
               >
                 <h4 className="text-center p-3">OPRET BRUGER</h4>
-                <p className="text-danger">{error}</p>
                 <div className="form-group row">
                   <label className="col-sm-4 col-form-label">Din email</label>
                   <div className="col-sm-8">
@@ -57,7 +67,7 @@ class Signup extends Component {
                   <label className="col-sm-4 col-form-label">Dit navn</label>
                   <div className="col-sm-8">
                     <input
-                      class="form-control"
+                      className="form-control"
                       type="text"
                       placeholder="navn"
                       name="name"
@@ -70,7 +80,7 @@ class Signup extends Component {
                   <label className="col-sm-4 col-form-label">Kodeord</label>
                   <div className="col-sm-8">
                     <input
-                      class="form-control"
+                      className="form-control"
                       type="password"
                       placeholder="kodeord"
                       name="password"
@@ -83,14 +93,19 @@ class Signup extends Component {
                   <label className="col-sm-4 col-form-label">Gentag</label>
                   <div className="col-sm-8">
                     <input
-                      class="form-control"
+                      className="form-control"
                       type="password"
+                      name="confirm"
                       placeholder="kodeord"
+                      value={this.state.confirm}
+                      onChange={this.onChange}
                     ></input>
                   </div>
                 </div>
                 <div className="form-group d-flex justify-content-end">
-                  <button className="btn btn-primary" type="submit">LOG IND</button>
+                  <button className="btn btn-primary" type="submit">
+                    LOG IND
+                  </button>
                 </div>
               </form>
             </div>

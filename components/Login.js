@@ -54,7 +54,7 @@ class Login extends Component {
                   <label className="col-sm-3 col-form-label">Kodeord</label>
                   <div className="col-sm-9">
                     <input
-                      class="form-control"
+                      className="form-control"
                       type="password"
                       placeholder="kodeord"
                       name="password"

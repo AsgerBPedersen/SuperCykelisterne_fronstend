@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { CURRENT_USER } from './User';
 
-const SIGNUP = gql`
-  mutation SIGNUP($email: String!, $name: String!, $password: String!) {
-    createUser(email: $email, name: $name, password: $password) {
+const UPDATEUSER = gql`
+  mutation UPDATEUSER($id: ID!, $name: String, $password: String) {
+    updateUser(id: $id, name: $name, password: $password) {
       id
-      email
-      name
     }
   }
 `;
@@ -16,8 +15,15 @@ class EditInfo extends Component {
   state = {
     name: "",
     password: "",
-    email: ""
+    confirm: ""
   };
+
+  getChanges = () => {
+    const changes = {};
+    if(this.state.name) changes.name = this.state.name;
+    if(this.state.password) changes.password = this.state.password;
+    return changes;
+  }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -25,18 +31,31 @@ class EditInfo extends Component {
 
   render() {
     return (
-      <Mutation mutation={SIGNUP} variables={this.state}>
-        {(signup, { error, loading }) => {
+      <Mutation mutation={UPDATEUSER} refetchQueries={[{ query: CURRENT_USER }]}>
+        {(updateUser, { error, loading }) => {
           return (
             <div>
               <form
                 method="post"
                 onSubmit={async e => {
                   e.preventDefault();
-                  const user = await signup();
-                  console.log(user);
-                  this.setState({name:'', email: '', password:''})
-                }}
+                  if (this.state.password != this.state.confirm) {
+                    alert("kodeordne er ikke ens.");
+                    this.setState({ password: "", confirm: "" });
+                  } else if(this.state.name || this.state.password) {
+                    const user = await updateUser({
+                      variables: {
+                        id: this.props.user.id,
+                        ...this.getChanges()
+                      }
+                    });
+                    console.log(user);
+                    this.setState({
+                      name: "",
+                      password: "",
+                      confirm: ""
+                    });
+                }}}
               >
                 <h4 className="text-center p-3">RET DINE BRUGEROPLYSNINGER</h4>
                 <p className="text-danger">{error}</p>
@@ -44,7 +63,7 @@ class EditInfo extends Component {
                   <label className="col-sm-4 col-form-label">Dit navn</label>
                   <div className="col-sm-8">
                     <input
-                      class="form-control"
+                      className="form-control"
                       type="text"
                       placeholder="navn"
                       name="name"
@@ -57,7 +76,7 @@ class EditInfo extends Component {
                   <label className="col-sm-4 col-form-label">Kodeord</label>
                   <div className="col-sm-8">
                     <input
-                      class="form-control"
+                      className="form-control"
                       type="password"
                       placeholder="kodeord"
                       name="password"
@@ -70,9 +89,12 @@ class EditInfo extends Component {
                   <label className="col-sm-4 col-form-label">Gentag</label>
                   <div className="col-sm-8">
                     <input
-                      class="form-control"
+                      className="form-control"
                       type="password"
                       placeholder="kodeord"
+                      name="confirm"
+                      value={this.state.confirm}
+                      onChange={this.onChange}
                     ></input>
                   </div>
                 </div>
