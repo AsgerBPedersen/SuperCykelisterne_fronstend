@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
-import { CURRENT_USER } from './User';
+import { CURRENT_USER } from "./User";
 
 const CREATE_IMAGE = gql`
   mutation CREATE_IMAGE($url: String!) {
@@ -20,59 +20,67 @@ class AddPhoto extends Component {
     });
   };
 
-  onSubmit = async (mutation) => {
-    const data = new FormData();
-    data.append("file", this.state.files[0]);
-    data.append("upload_preset", "SuperCykler");
+  onSubmit = async mutation => {
+    if (this.state.files) {
+      const data = new FormData();
+      data.append("file", this.state.files[0]);
+      data.append("upload_preset", "SuperCykler");
 
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/asge4899/image/upload",
-      {
-        method: "POST",
-        body: data
-      }
-    );
-    const img = await res.json();
-    console.log(img);
-
-    await mutation({
-        variables: {
-            url: img.secure_url
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/asge4899/image/upload",
+        {
+          method: "POST",
+          body: data
         }
-    })
+      );
+      const img = await res.json();
+      console.log(img);
+
+      await mutation({
+        variables: {
+          url: img.secure_url
+        }
+      });
+      this.setState({
+          files: null
+      });
+    }
   };
 
   render() {
     return (
-      <Mutation mutation={CREATE_IMAGE} refetchQueries={[{ query: CURRENT_USER }]}>
-          {uploadImage => (
-              <div>
-              <h4 className="text-center p-3">TILFØJ BILLEDE</h4>
-              {this.state.files && <p>{this.state.files[0].name}</p>}
-      
-              <div className="form-group row">
-                <div className="d-flex">
-                  <label className="btn btn-outline-secondary text-nowrap m-0">
-                    VÆLG FIL PÅ DIN COMPUTER
-                    <input
-                      className="form-control"
-                      type="File"
-                      name="file"
-                      onChange={this.onChange}
-                      hidden
-                    ></input>
-                  </label>
-      
-                  <button
-                    onClick={() => this.onSubmit(uploadImage)}
-                    className="btn btn-primary align-self-center"
-                  >
-                    UPLOAD
-                  </button>
-                </div>
+      <Mutation
+        mutation={CREATE_IMAGE}
+        refetchQueries={[{ query: CURRENT_USER }]}
+      >
+        {uploadImage => (
+          <div>
+            <h4 className="text-center p-3">TILFØJ BILLEDE</h4>
+            {this.state.files && <p>{this.state.files[0].name}</p>}
+
+            <div className="form-group row">
+              <div className="d-flex">
+                <label className="btn btn-outline-secondary text-nowrap m-0">
+                  VÆLG FIL PÅ DIN COMPUTER
+                  <input
+                    className="form-control"
+                    type="File"
+                    name="file"
+                    onChange={this.onChange}
+                    hidden
+                  ></input>
+                </label>
+
+                <button
+                  onClick={() => this.onSubmit(uploadImage)}
+                  className="btn btn-primary align-self-center"
+                >
+                  UPLOAD
+                </button>
               </div>
             </div>
-          )}
+          </div>
+        )}
       </Mutation>
     );
   }
