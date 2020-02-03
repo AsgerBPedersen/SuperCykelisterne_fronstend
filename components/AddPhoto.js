@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { CURRENT_USER } from './User';
 
 const CREATE_IMAGE = gql`
   mutation CREATE_IMAGE($url: String!) {
@@ -43,7 +44,7 @@ class AddPhoto extends Component {
 
   render() {
     return (
-      <Mutation mutation={CREATE_IMAGE}>
+      <Mutation mutation={CREATE_IMAGE} refetchQueries={[{ query: CURRENT_USER }]}>
           {uploadImage => (
               <div>
               <h4 className="text-center p-3">TILFØJ BILLEDE</h4>
