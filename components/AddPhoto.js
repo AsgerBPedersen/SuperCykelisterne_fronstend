@@ -66,6 +66,7 @@ class AddPhoto extends Component {
                     className="form-control"
                     type="File"
                     name="file"
+                    accept="image/*"
                     onChange={this.onChange}
                     hidden
                   ></input>
