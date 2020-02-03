@@ -26,7 +26,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <Mutation mutation={SIGNUP} variables={this.state}>
+      <Mutation mutation={SIGNUP} variables={this.state} refetchQueries={[{ query: CURRENT_USER }]}>
         {(signup, { error, loading }) => {
           return (
             <div>
