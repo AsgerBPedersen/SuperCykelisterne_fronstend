@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import Members from '../components/Members';
 
 class medlemmer extends Component {
     render() {
         return (
-            <div>
-                <p>medlemmer</p>
-            </div>
+            <Members></Members>
         );
     }
 }

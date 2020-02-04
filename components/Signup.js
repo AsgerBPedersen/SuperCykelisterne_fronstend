@@ -41,7 +41,6 @@ class Signup extends Component {
                     this.setState({ password: "", confirm: "" });
                   } else {
                     const user = await signup();
-                    console.log(user);
                     this.setState({
                       name: "",
                       email: "",
