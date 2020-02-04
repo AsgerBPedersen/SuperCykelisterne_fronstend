@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import { CURRENT_USER } from './User';
+import Error from './Error';
 
 const SIGNIN = gql`
   mutation SIGNIN($email: String!, $password: String!) {
@@ -24,7 +25,7 @@ class Login extends Component {
   render() {
     return (
       <Mutation mutation={SIGNIN} variables={this.state} refetchQueries={[{ query: CURRENT_USER }]}>
-        {(signin, { error, loading }) => {
+        {(signin, { error }) => {
           return (
             <div>
               <form
@@ -37,9 +38,10 @@ class Login extends Component {
                 }}
               >
                 <h4 className="text-center p-3">LOG IND HER</h4>
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Email</label>
-                  <div className="col-sm-9">
+                <Error error={error}></Error>
+                <div className="form-group row d-flex justify-content-end">
+                  <label className="form-label m-0 text-right p-2">Email</label>
+                  <div className="col-sm-8 p-0">
                     <input
                       className="form-control"
                       type="email"
@@ -50,9 +52,9 @@ class Login extends Component {
                     ></input>
                   </div>
                 </div>
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Kodeord</label>
-                  <div className="col-sm-9">
+                <div className="form-group row d-flex justify-content-end">
+                  <label className="form-label m-0 text-right p-2">Kodeord</label>
+                  <div className="col-sm-8 p-0">
                     <input
                       className="form-control"
                       type="password"

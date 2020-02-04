@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import Carousel from './Carousel';
-import Login from './Login';
-import Signup from './Signup';
+import React, { Component } from "react";
+import Carousel from "./Carousel";
+import Login from "./Login";
+import Signup from "./Signup";
 
 class Welcome extends Component {
-    render() {
-        return (
-            <div>
+  render() {
+    return (
+      <div>
         <h2>Velkommen til vores hjemmeside!</h2>
-        <Carousel/>
+        <Carousel />
         <div className="d-flex justify-content-around container p-5">
-            <Login/>
-            <Signup/>
-        </div>
-        <style jsx>{`
           
-        `}</style>
+            <Login />
+            <Signup />
+
+        </div>
+        <style jsx>{``}</style>
         <script
           src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
           integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -32,8 +32,8 @@ class Welcome extends Component {
           crossOrigin="anonymous"
         ></script>
       </div>
-        );
-    }
+    );
+  }
 }
 
 export default Welcome;

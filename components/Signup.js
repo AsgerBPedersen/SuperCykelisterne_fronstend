@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import Error from './Error';
 import { CURRENT_USER } from './User';
 
 const SIGNUP = gql`
@@ -28,9 +29,9 @@ class Signup extends Component {
   render() {
     return (
       <Mutation mutation={SIGNUP} variables={this.state} refetchQueries={[{ query: CURRENT_USER }]}>
-        {(signup, { error, loading }) => {
+        {(signup, { error }) => {
           return (
-            <div>
+            <div className="col-sm-4">
               <form
                 method="post"
                 onSubmit={async e => {
@@ -51,9 +52,10 @@ class Signup extends Component {
                 }}
               >
                 <h4 className="text-center p-3">OPRET BRUGER</h4>
-                <div className="form-group row">
-                  <label className="col-sm-4 col-form-label">Din email</label>
-                  <div className="col-sm-8">
+                <Error error={error}></Error>
+                <div className="form-group row d-flex justify-content-end">
+                  <label className="form-label m-0 text-right p-2">Din email</label>
+                  <div className="col-sm-8 p-0">
                     <input
                       className="form-control"
                       type="email"
@@ -64,9 +66,9 @@ class Signup extends Component {
                     ></input>
                   </div>
                 </div>
-                <div className="form-group row">
-                  <label className="col-sm-4 col-form-label">Dit navn</label>
-                  <div className="col-sm-8">
+                <div className="form-group row d-flex justify-content-end">
+                  <label className="form-label m-0 text-right p-2">Dit navn</label>
+                   <div className="col-sm-8 p-0">
                     <input
                       className="form-control"
                       type="text"
@@ -77,9 +79,9 @@ class Signup extends Component {
                     ></input>
                   </div>
                 </div>
-                <div className="form-group row">
-                  <label className="col-sm-4 col-form-label">Kodeord</label>
-                  <div className="col-sm-8">
+                <div className="form-group row d-flex justify-content-end">
+                  <label className="form-label m-0 text-right p-2">Kodeord</label>
+                   <div className="col-sm-8 p-0">
                     <input
                       className="form-control"
                       type="password"
@@ -90,9 +92,9 @@ class Signup extends Component {
                     ></input>
                   </div>
                 </div>
-                <div className="form-group row">
-                  <label className="col-sm-4 col-form-label">Gentag</label>
-                  <div className="col-sm-8">
+                <div className="form-group row d-flex justify-content-end">
+                  <label className="form-label m-0 text-right p-2">Gentag</label>
+                   <div className="col-sm-8 p-0">
                     <input
                       className="form-control"
                       type="password"
