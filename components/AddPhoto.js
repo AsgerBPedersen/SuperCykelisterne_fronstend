@@ -34,7 +34,7 @@ class AddPhoto extends Component {
         }
       );
       const img = await res.json();
-      console.log(img);
+
 
       await mutation({
         variables: {
