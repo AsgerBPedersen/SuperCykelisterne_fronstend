@@ -2,17 +2,25 @@ import React, { Component } from "react";
 import Carousel from "./Carousel";
 import Login from "./Login";
 import Signup from "./Signup";
+import User from './User';
 
 class Welcome extends Component {
   render() {
     return (
-      <div>
+      <User>
+        {({ data }) => {
+          const user = data ? data.currentUser : null;
+          return (
+            <div>
         <h2 className="text-center m-4">Velkommen til vores hjemmeside!</h2>
         <Carousel />
         <div className="d-flex justify-content-around container p-5">
-          
+          {!user && (
+<>
             <Login />
             <Signup />
+            </>
+          )}
 
         </div>
         <style jsx>{``}</style>
@@ -32,6 +40,10 @@ class Welcome extends Component {
           crossOrigin="anonymous"
         ></script>
       </div>
+          )
+        }}
+      </User>
+      
     );
   }
 }
