@@ -8,6 +8,7 @@ const CURRENT_USER = gql`
       email
       name
       images {
+        id
         url
       }
     }
