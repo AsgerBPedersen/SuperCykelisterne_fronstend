@@ -12,7 +12,6 @@ class MemberArea extends Component {
       <User>
         {({ data }) => {
           const user = data ? data.currentUser : null;
-          console.log(user);
           if (user) {
             return (
               <>
