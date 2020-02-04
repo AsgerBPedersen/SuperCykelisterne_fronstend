@@ -7,7 +7,7 @@ class Welcome extends Component {
   render() {
     return (
       <div>
-        <h2>Velkommen til vores hjemmeside!</h2>
+        <h2 className="text-center m-4">Velkommen til vores hjemmeside!</h2>
         <Carousel />
         <div className="d-flex justify-content-around container p-5">
           
