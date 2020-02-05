@@ -1,32 +1,60 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Carousel extends Component {
-    render() {
-        return (
-            <div
-          id="carouselBikes"
-          className="carousel slide"
-          data-ride="carousel"
-        >
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img src="test1.jpg" className="d-block w-100" alt="..."></img>
-            </div>
-            <div className="carousel-item">
-              <img src="test2.jpg" className="d-block w-100" alt="..."></img>
-            </div>
-            <div className="carousel-item">
-              <img src="test1.jpg" className="d-block w-100" alt="..."></img>
-            </div>
-          </div>
-          <style jsx>{`
-              .carousel-inner{
-                max-height: 600px !important;
-              }
-            `}</style>
-        </div>
-        );
+  componentDidMount() {
+    var slides = document.querySelectorAll(".slide");
+    var currentSlide = 0;
+    var slideInterval = setInterval(nextSlide, 5000);
+
+    function nextSlide() {
+      slides[currentSlide].className = slides[currentSlide].className.replace("slide showing", "slide");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].className = slides[currentSlide].className.replace("slide", "slide showing");
     }
+  }
+  render() {
+    return (
+      <div id="slides">
+        {this.props.images.map((img, i) => (
+          <div key={img.id} className={i == 0 ? "slide showing" : "slide"}>
+            <img src={img.url} className="img" alt="..."></img>
+          </div>
+        ))}
+
+        <style jsx>{`
+          #slides {
+            height: 600px;
+            position: relative;
+          }
+
+          .slide {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 1;
+
+            -webkit-transition: opacity 1s;
+            -moz-transition: opacity 1s;
+            -o-transition: opacity 1s;
+            transition: opacity 1s;
+          }
+
+          .showing {
+            opacity: 1;
+            z-index: 2;
+          }
+          .img {
+            object-fit:cover;
+            width: 100%;
+            height: 100%;
+          }
+        `}</style>
+      </div>
+    );
+  }
 }
 
 export default Carousel;
