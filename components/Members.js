@@ -32,7 +32,6 @@ class Members extends Component {
               ;
             </div>
           );
-          return <p>lol</p>
         }}
       </Query>
     );
