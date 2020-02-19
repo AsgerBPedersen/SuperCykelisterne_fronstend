@@ -5,6 +5,7 @@ import Signup from "./Signup";
 import User from './User';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import Error from './Error';
 
 const RANDOM_PHOTOS = gql`
   query {
@@ -25,8 +26,9 @@ class Welcome extends Component {
             <div>
         <h2 className="text-center m-4">Velkommen til vores hjemmeside!</h2>
         <Query query={RANDOM_PHOTOS}>
-          {({data, loading}) => {
+          {({data, loading, error}) => {
             if(loading) return (<p>loading</p>);
+            if(error) return <Error error={error}></Error>
             return (<Carousel images={data.randomPhotos}></Carousel>);
           }}
         </Query>

@@ -5,10 +5,9 @@ class Carousel extends Component {
     var slides = document.querySelectorAll(".slide");
     var currentSlide = 0;
     if(slides.length > 0) {
-      var slideInterval = setInterval(nextSlide, 5000);
+      setInterval(nextSlide, 5000);
     }
-
-    function nextSlide() {
+    const nextSlide = () => {
       slides[currentSlide].className = slides[currentSlide].className.replace("slide showing", "slide");
       currentSlide = (currentSlide + 1) % slides.length;
       slides[currentSlide].className = slides[currentSlide].className.replace("slide", "slide showing");
