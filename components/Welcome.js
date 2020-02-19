@@ -20,8 +20,9 @@ class Welcome extends Component {
   render() {
     return (
       <User>
-        {({ data }) => {
+        {({ data, loading }) => {
           const user = data ? data.currentUser : null;
+          if(loading) return null;
           return (
             <div>
         <h2 className="text-center m-4">Velkommen til vores hjemmeside!</h2>
