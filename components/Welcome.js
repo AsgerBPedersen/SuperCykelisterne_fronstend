@@ -26,8 +26,8 @@ class Welcome extends Component {
         <h2 className="text-center m-4">Velkommen til vores hjemmeside!</h2>
         <Query query={RANDOM_PHOTOS}>
           {({data, loading}) => {
-            if(loading) return (<p>lol</p>);
-            return (<Carousel images={data.randomPhotos}></Carousel>)
+            if(loading) return (<p>loading</p>);
+            return (<Carousel images={data.randomPhotos}></Carousel>);
           }}
         </Query>
         <div className="d-flex justify-content-around container p-5">

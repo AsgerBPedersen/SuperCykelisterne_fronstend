@@ -4,7 +4,9 @@ class Carousel extends Component {
   componentDidMount() {
     var slides = document.querySelectorAll(".slide");
     var currentSlide = 0;
-    var slideInterval = setInterval(nextSlide, 5000);
+    if(slides.length > 0) {
+      var slideInterval = setInterval(nextSlide, 5000);
+    }
 
     function nextSlide() {
       slides[currentSlide].className = slides[currentSlide].className.replace("slide showing", "slide");
@@ -13,6 +15,7 @@ class Carousel extends Component {
     }
   }
   render() {
+    if(this.props.images.length == 0) return null
     return (
       <div id="slides">
         {this.props.images.map((img, i) => (
